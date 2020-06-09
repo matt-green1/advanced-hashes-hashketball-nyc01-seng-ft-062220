@@ -331,7 +331,7 @@ def winning_team
 end
 
 def player_with_longest_name
-  longest name = ""
+  longest_name = ""
   player_name_list = []
   
   #creates player name array
