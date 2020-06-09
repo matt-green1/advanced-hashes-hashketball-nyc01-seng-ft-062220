@@ -356,6 +356,63 @@ def player_with_longest_name
 end
 
 
+#first first creating a method for most steals
+def num_steals(player_name)
+  game_hash.each {|outer_key,outer_value|
+    outer_value.each {|middle_key,middle_value|
+      if middle_key == :players
+        middle_value.each {|player_hash_element|
+          if player_hash_element.has_value?(player_name)
+            return player_hash_element[:steals]
+          end
+        }
+      end
+    }
+  }
+end
+
+
+#defining a method for most steals first that I can use in the last method
+
+def most_steals
+  most_steals = 0
+  player_name_list = []
+  
+  #creates player name array
+  game_hash.each {|outer_key,outer_value|
+    outer_value.each {|middle_key,middle_value|
+      if middle_key == :players
+        middle_value.each {|player_hash_element|
+          player_name_list.push(player_hash_element[:player_name])
+        }
+      end
+    }
+  }
+  
+  #finds most steals
+  player_name_list.each {|player_name|
+    if num_points_scored(player_name) > most_points_scored
+      most_points_scored = num_points_scored(player_name)
+    end
+  }
+  
+  #finds player to most pts and returns their name
+  game_hash.each {|outer_key,outer_value|
+    outer_value.each {|middle_key,middle_value|
+      if middle_key == :players
+        middle_value.each {|player_hash_element|
+          if player_hash_element[:points] == most_points_scored
+            
+            return player_hash_element[:player_name]
+            
+          end
+        }
+      end
+    }
+  }
+end
+
+
 def long_name_steals_a_ton
   
 end
