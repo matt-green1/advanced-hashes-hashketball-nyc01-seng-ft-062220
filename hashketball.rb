@@ -1,4 +1,6 @@
 # Write your code below game_hash
+require "pry"
+
 def game_hash
   {
     home: {
@@ -126,4 +128,296 @@ def game_hash
   }
 end
 
-# Write code here
+def num_points_scored(player_name)
+  game_hash.each {|outer_key,outer_value|
+    outer_value.each {|middle_key,middle_value|
+      if middle_key == :players
+        middle_value.each {|player_hash_element|
+          if player_hash_element.has_value?(player_name)
+            return player_hash_element[:points]
+          end
+        }
+      end
+    }
+  }
+end
+
+def shoe_size(player_name)
+  game_hash.each {|outer_key,outer_value|
+    outer_value.each {|middle_key,middle_value|
+      if middle_key == :players
+        middle_value.each {|player_hash_element|
+          if player_hash_element.has_value?(player_name)
+            return player_hash_element[:shoe]
+          end
+        }
+      end
+    }
+  }
+end
+
+def team_colors(team_name)
+  game_hash.each {|outer_key,outer_value|
+    outer_value.each {|middle_key,middle_value|
+      if middle_value == team_name 
+        return outer_value[:colors]
+      end
+    }
+  }
+end
+
+def team_names
+  team_names = []
+  game_hash.each {|outer_key,outer_value|
+    outer_value.each {|middle_key,middle_value|
+      if middle_key == :team_name
+        team_names.push(outer_value[:team_name])
+      end
+    }
+  }
+  return team_names
+end
+
+def player_numbers(team_name)
+  jersey_numbers = []
+  game_hash.each {|outer_key,outer_value|
+    outer_value.each {|middle_key,middle_value|
+      if outer_value[:team_name] == team_name
+        if middle_key == :players
+          middle_value.each{|player_hash_element|
+            jersey_numbers.push(player_hash_element[:number])
+          }
+        end
+      end
+    }
+  }
+  return jersey_numbers
+end
+
+def player_stats(player_name)
+  game_hash.each {|outer_key,outer_value|
+    outer_value.each {|middle_key,middle_value|
+      if middle_key == :players
+        middle_value.each {|player_hash_element|
+          if player_hash_element.has_value?(player_name)
+            return player_hash_element
+          end
+        }
+      end
+      
+    }
+  }
+end
+
+def num_rebounds(player_name)
+  game_hash.each {|outer_key,outer_value|
+    outer_value.each {|middle_key,middle_value|
+      if middle_key == :players
+        middle_value.each {|player_hash_element|
+          if player_hash_element.has_value?(player_name)
+            return player_hash_element[:rebounds]
+          end
+        }
+      end
+    }
+  }
+end
+
+
+def big_shoe_rebounds
+  biggest_shoe_size = 0
+  player_name_list = []
+  
+  #creates player name array
+  game_hash.each {|outer_key,outer_value|
+    outer_value.each {|middle_key,middle_value|
+      if middle_key == :players
+        middle_value.each {|player_hash_element|
+          player_name_list.push(player_hash_element[:player_name])
+        }
+      end
+      
+    }
+  }
+  
+  #finds biggest shoe size
+  player_name_list.each {|player_name|
+    if shoe_size(player_name) > biggest_shoe_size
+      biggest_shoe_size = shoe_size(player_name)
+    end
+  }
+  
+  #finds player to match largest shoe size and outputs rebound number for player
+  game_hash.each {|outer_key,outer_value|
+    outer_value.each {|middle_key,middle_value|
+      if middle_key == :players
+        middle_value.each {|player_hash_element|
+          if player_hash_element[:shoe] == biggest_shoe_size
+            return player_hash_element[:rebounds]
+            
+          end
+        }
+      end
+    }
+  }
+end
+
+
+def most_points_scored
+  most_points_scored = 0
+  player_name_list = []
+  
+  #creates player name array
+  game_hash.each {|outer_key,outer_value|
+    outer_value.each {|middle_key,middle_value|
+      if middle_key == :players
+        middle_value.each {|player_hash_element|
+          player_name_list.push(player_hash_element[:player_name])
+        }
+      end
+    }
+  }
+  
+  #finds most points scored
+  player_name_list.each {|player_name|
+    if num_points_scored(player_name) > most_points_scored
+      most_points_scored = num_points_scored(player_name)
+    end
+  }
+  
+  #finds player to most pts and returns their name
+  game_hash.each {|outer_key,outer_value|
+    outer_value.each {|middle_key,middle_value|
+      if middle_key == :players
+        middle_value.each {|player_hash_element|
+          if player_hash_element[:points] == most_points_scored
+            puts player_hash_element[:player_name]
+            
+          end
+        }
+      end
+    }
+  }
+end
+
+def winning_team
+  home_score = 0
+  away_score = 0
+  
+  game_hash.each {|outer_key,outer_value|
+    if outer_key == :home
+      outer_value.each {|middle_key,middle_value|
+        if middle_key == :players
+        middle_value.each {|player_hash_element|
+          home_score += player_hash_element[:points]
+        }
+       end
+      }
+    elsif outer_key == :away
+      outer_value.each {|middle_key,middle_value|
+        if middle_key == :players
+        middle_value.each {|player_hash_element|
+          away_score += player_hash_element[:points]
+        }
+        end
+      }
+    end
+  }
+  if home_score > away_score
+    puts "The winning team is the #{game_hash[:home][:team_name]} because they have the most points, duh."
+  elsif home_score < away_score
+    puts "The winning team is the #{game_hash[:away][:team_name]} because they have the most points, duh."
+  end
+end
+
+def player_with_longest_name
+  longest_name = ""
+  player_name_list = []
+  
+  #creates player name array
+  game_hash.each {|outer_key,outer_value|
+    outer_value.each {|middle_key,middle_value|
+      if middle_key == :players
+        middle_value.each {|player_hash_element|
+          player_name_list.push(player_hash_element[:player_name])
+        }
+      end
+    }
+  }
+  
+  #finds longest name
+  player_name_list.each {|player_name|
+    if player_name.length > longest_name.length
+      longest_name = player_name
+    end
+  }
+  
+  return longest_name
+end
+
+
+#first first creating a method for most steals
+def num_steals(player_name)
+  game_hash.each {|outer_key,outer_value|
+    outer_value.each {|middle_key,middle_value|
+      if middle_key == :players
+        middle_value.each {|player_hash_element|
+          if player_hash_element.has_value?(player_name)
+            return player_hash_element[:steals]
+          end
+        }
+      end
+    }
+  }
+end
+
+
+#defining a method to give player with most steals first that I can use in the last method
+
+def most_steals
+  most_steals = 0
+  player_name_list = []
+  
+  #creates player name array
+  game_hash.each {|outer_key,outer_value|
+    outer_value.each {|middle_key,middle_value|
+      if middle_key == :players
+        middle_value.each {|player_hash_element|
+          player_name_list.push(player_hash_element[:player_name])
+        }
+      end
+    }
+  }
+  
+  #finds most steals
+  player_name_list.each {|player_name|
+    if num_steals(player_name) > most_steals
+      most_steals = num_steals(player_name)
+    end
+  }
+  
+  #finds player w/ most steals and returns their name
+  game_hash.each {|outer_key,outer_value|
+    outer_value.each {|middle_key,middle_value|
+      if middle_key == :players
+        middle_value.each {|player_hash_element|
+          if player_hash_element[:steals] == most_steals
+            return player_hash_element[:player_name]
+            
+          end
+        }
+      end
+    }
+  }
+end
+
+
+
+def long_name_steals_a_ton
+  if player_with_longest_name == most_steals
+    puts "Yes, the player with the longest name had the most steals"
+    return TRUE
+  end
+end
+
+long_name_steals_a_ton
