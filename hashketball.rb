@@ -324,7 +324,7 @@ def winning_team
     end
   }
   if home_score > away_score
-    puts "The winning team is the #{} because they have the most points, duh."
+    puts "The winning team is the #{game_hash[:home][:team_name]} because they have the most points, duh."
   elsif home_score < away_score
   end
 end
