@@ -391,8 +391,8 @@ def most_steals
   
   #finds most steals
   player_name_list.each {|player_name|
-    if num_points_scored(player_name) > most_points_scored
-      most_points_scored = num_points_scored(player_name)
+    if num_steals(player_name) > most_steals
+      most_steals = num_steals(player_name)
     end
   }
   
