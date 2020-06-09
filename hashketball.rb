@@ -347,7 +347,7 @@ def player_with_longest_name
   
   #finds longest name
   player_name_list.each {|player_name|
-    if player_name.length > longest_name
+    if player_name.length > longest_name.length
       longest_name = player_name
     end
   }
