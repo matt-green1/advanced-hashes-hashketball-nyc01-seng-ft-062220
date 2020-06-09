@@ -372,7 +372,7 @@ def num_steals(player_name)
 end
 
 
-#defining a method for most steals first that I can use in the last method
+#defining a method to give player with most steals first that I can use in the last method
 
 def most_steals
   most_steals = 0
