@@ -412,7 +412,8 @@ def most_steals
   }
 end
 
+most_steals
 
-def long_name_steals_a_ton
+#def long_name_steals_a_ton
   
-end
+#end
