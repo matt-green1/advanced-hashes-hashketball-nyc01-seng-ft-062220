@@ -312,7 +312,6 @@ def winning_team
           home_score += player_hash_element[:points]
         }
        end
-        
       }
     elsif outer_key == :away
       outer_value.each {|middle_key,middle_value|
