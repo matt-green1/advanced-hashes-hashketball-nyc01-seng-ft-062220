@@ -416,7 +416,7 @@ end
 def long_name_steals_a_ton
   if player_with_longest_name == most_steals
     puts "Yes, the player with the longest name had the most steals"
-    return True
+    return TRUE
   end
 end
 
