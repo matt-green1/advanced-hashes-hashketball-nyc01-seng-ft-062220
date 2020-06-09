@@ -332,5 +332,25 @@ end
 
 def player_with_longest_name
   longest name = ""
+  player_name_list = []
   
+  #creates player name array
+  game_hash.each {|outer_key,outer_value|
+    outer_value.each {|middle_key,middle_value|
+      if middle_key == :players
+        middle_value.each {|player_hash_element|
+          player_name_list.push(player_hash_element[:player_name])
+        }
+      end
+    }
+  }
+  
+  #finds longest name
+  player_name_list.each {|player_name|
+    if player_name.length > longest_name
+      longest_name = player_name
+    end
+  }
+  
+  puts longest_name
 end
