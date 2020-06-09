@@ -402,7 +402,7 @@ def most_steals
       if middle_key == :players
         middle_value.each {|player_hash_element|
           if player_hash_element[:steals] == most_steals
-            
+            puts player_hash_element[:player_name]
             return player_hash_element[:player_name]
             
           end
