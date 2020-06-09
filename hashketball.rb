@@ -396,7 +396,7 @@ def most_steals
     end
   }
   
-  #finds player to most pts and returns their name
+  #finds player w/ most steals and returns their name
   game_hash.each {|outer_key,outer_value|
     outer_value.each {|middle_key,middle_value|
       if middle_key == :players
