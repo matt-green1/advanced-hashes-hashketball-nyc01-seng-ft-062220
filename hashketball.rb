@@ -355,4 +355,3 @@ def player_with_longest_name
   puts longest_name
 end
 
-player_with_longest_name
